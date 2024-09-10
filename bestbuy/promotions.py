@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+
 class Promotion(ABC):
     """
     Abstract base class for promotions.
@@ -10,9 +11,10 @@ class Promotion(ABC):
     @abstractmethod
     def apply_promotion(self, product, quantity):
         """
-        Applies the promotion to the product and returns the total discounted price.
+        Applies the promotion to product & returns the total discounted price.
         """
         pass
+
 
 class SecondHalfPrice(Promotion):
     """
@@ -25,6 +27,7 @@ class SecondHalfPrice(Promotion):
         total_price = (quantity // 2) * (product.price / 2) + (quantity % 2) * product.price
         return total_price
 
+
 class ThirdOneFree(Promotion):
     """
     Promotion where the third item is free (buy 2, get 1 free).
@@ -36,6 +39,7 @@ class ThirdOneFree(Promotion):
         total_price = (quantity // 3) * (2 * product.price) + (quantity % 3) * product.price
         return total_price
 
+
 class PercentDiscount(Promotion):
     """
     Promotion that applies a percentage discount to the product.
@@ -44,7 +48,23 @@ class PercentDiscount(Promotion):
         super().__init__(name)
         self.percent = percent
 
+
     def apply_promotion(self, product, quantity):
         discount = product.price * (self.percent / 100)
         discounted_price = product.price - discount
         return discounted_price * quantity
+
+
+
+
+
+
+
+        total_price = 0
+        for product, quantity in shopping_list:
+            if product.quantity >= quantity:
+                product.set_quantity(product.quantity - quantity)
+                total_price += product.price * quantity
+            else:
+                print(f"Not enough stock for {product.name}.")
+        return total_price

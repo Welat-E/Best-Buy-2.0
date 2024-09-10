@@ -1,3 +1,5 @@
+import promotions
+
 # Store class to manage product-related operations
 
 
@@ -40,16 +42,25 @@ class Store:
 
         Args:
             shopping_list (list): A list of tuples, each containing a product 
-                                  and quantity.
+                                and quantity.
 
         Returns:
-            float: The total price of the order.
+            float: The total price of the order, including promotions.
         """
         total_price = 0
+
         for product, quantity in shopping_list:
+            if product.promotion:
+                # Apply the product's promotion if it has one
+                total_price += product.promotion.apply_promotion(product, quantity)
+            else:
+                # No promotion, use the regular price
+                total_price += product.price * quantity
+
+            # Reduce product stock
             if product.quantity >= quantity:
                 product.set_quantity(product.quantity - quantity)
-                total_price += product.price * quantity
             else:
                 print(f"Not enough stock for {product.name}.")
+
         return total_price
