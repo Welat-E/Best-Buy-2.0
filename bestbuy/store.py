@@ -20,7 +20,7 @@ class Store:
         Processes an order for the products in the shopping list.
 
         Args:
-            shopping_list (list): A list of tuples, each containing a product and quantity.
+        shopping_list: A list of tuples, each containing a product & quantity.
 
         Returns:
             float: The total price of the order.
