@@ -55,16 +55,3 @@ class PercentDiscount(Promotion):
         return discounted_price * quantity
 
 
-
-
-
-
-
-        total_price = 0
-        for product, quantity in shopping_list:
-            if product.quantity >= quantity:
-                product.set_quantity(product.quantity - quantity)
-                total_price += product.price * quantity
-            else:
-                print(f"Not enough stock for {product.name}.")
-        return total_price

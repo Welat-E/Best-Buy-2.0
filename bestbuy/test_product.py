@@ -3,7 +3,7 @@ from products import Product
 from promotions import SecondHalfPrice, ThirdOneFree, PercentDiscount
 
 
-# Test for applying the Second Half Price promotion
+#test for applying the Second Half Price promo
 def test_apply_second_half_price_promotion():
     """
     Test the Second Half Price promotion for a product. It checks if the 
@@ -16,7 +16,7 @@ def test_apply_second_half_price_promotion():
     assert total_price == 250  # (100 / 2) + 100 + 100
 
 
-# Test for applying the Third One Free promotion
+#test for applying the Third One Free promo
 def test_apply_third_one_free_promotion():
     """
     Test the Third One Free promotion for a product. It verifies the correct 
@@ -29,7 +29,7 @@ def test_apply_third_one_free_promotion():
     assert total_price == 400  # (100 * 2 * 2)
 
 
-# Test for applying the Percent Discount promotion
+#test for applying the Percent Discount promotion
 def test_apply_percent_discount_promotion():
     """
     Test the Percent Discount promotion for a product. It ensures the correct 

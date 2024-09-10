@@ -48,7 +48,6 @@ class Store:
             float: The total price of the order, including promotions.
         """
         total_price = 0
-
         for product, quantity in shopping_list:
             if product.promotion:
                 # Apply the product's promotion if it has one
@@ -61,6 +60,6 @@ class Store:
             if product.quantity >= quantity:
                 product.set_quantity(product.quantity - quantity)
             else:
-                print(f"Not enough stock for {product.name}.")
+                raise ValueError(f"Not enough stock for {product.name}.")
 
         return total_price
