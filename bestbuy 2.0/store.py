@@ -4,7 +4,7 @@ import promotions
 
 
 class Store:
-    
+
     def __init__(self, product_list):
         """
         Initialize the store with a list of products.
@@ -14,7 +14,6 @@ class Store:
         """
         self.list_products = product_list
 
-
     # Method to print all products in the store
     def show_list_products(self):
         """
@@ -23,14 +22,13 @@ class Store:
         for product in self.list_products:
             print(product.show())  # Call the show method of each product
 
-
     # Method to process the order for a list of products
     def order(self, shopping_list):
         """
         Processes an order for the products in the shopping list.
 
         Args:
-            shopping_list (list): A list of tuples, each containing a product 
+            shopping_list (list): A list of tuples, each containing a product
                                   and quantity.
 
         Returns:
@@ -54,3 +52,15 @@ class Store:
             product.set_quantity(product.quantity - quantity)
 
         return total_price
+
+
+    # New method to get the total quantity of all products in the store
+    def get_total_quantity(self):
+        """
+        Returns the total quantity of all products in the store.
+
+        Returns:
+            int: The sum of quantities for all products.
+        """
+        total_quantity = sum(product.quantity for product in self.list_products)
+        return total_quantity
