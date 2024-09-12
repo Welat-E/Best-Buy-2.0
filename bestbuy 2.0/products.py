@@ -160,3 +160,6 @@ class LimitedProduct(Product):
         Returns a string representation of the limited product details.
         """
         return f"{self.name}, Price: ${self.price}, Quantity: {self.quantity}, Max per order: {self.maximum}"
+
+
+
