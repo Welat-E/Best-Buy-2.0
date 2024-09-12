@@ -21,10 +21,16 @@ class SecondHalfPrice(Promotion):
     Promotion where the second item is at half price.
     """
     def apply_promotion(self, product, quantity):
+        # Check if there is only one item, no promotion
         if quantity < 2:
             return product.price * quantity
-        # Every second item at half price
-        total_price = (quantity // 2) * (product.price / 2) + (quantity % 2) * product.price
+        
+        # Calculate the price: every second item is at half price
+        # For odd quantities, the last item is at full price
+        full_price_items = quantity // 2 + quantity % 2
+        half_price_items = quantity // 2
+        
+        total_price = (full_price_items * product.price) + (half_price_items * product.price / 2)
         return total_price
 
 
