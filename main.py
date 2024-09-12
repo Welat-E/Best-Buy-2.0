@@ -90,7 +90,12 @@ def make_order(store):
             print("Invalid input. Please enter a number.")
 
     total_price = store.order(shopping_list)
-    print(f"Order cost: {total_price} dollars.")
+
+    # Check if there is no stock and display the correct message
+    if total_price == "There is no stock":
+        print("There is no stock.")
+    else:
+        print(f"Order cost: {total_price} dollars.")
 
 
 # Main function to set up initial stock and start the store program

@@ -24,18 +24,7 @@ class Store:
 
     # Method to process the order for a list of products
 
-
     def order(self, shopping_list):
-        """
-        Processes an order for the products in the shopping list.
-
-        Args:
-            shopping_list (list): A list of tuples, each containing a product
-                                and quantity.
-
-        Returns:
-            float: The total price of the order, or a message if out of stock.
-        """
         total_price = 0
         for product, quantity in shopping_list:
             # Check if the requested quantity is greater than the available stock
