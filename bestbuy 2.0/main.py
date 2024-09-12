@@ -9,7 +9,7 @@ from promotions import SecondHalfPrice, ThirdOneFree, PercentDiscount
 def start(store):
     """
     Display the store menu and process user input to perform actions such as
-    listing products, showing total amount, making an order, or quitting the 
+    listing products, showing total amount, making an order, or quitting the
     program.
 
     :param store: Store object containing the list of products.
@@ -30,7 +30,7 @@ def start(store):
         elif choice == "3":
             make_order(store)
         elif choice == "4":
-            print("Quitting...")
+            print("Thank you for your purchase. Honor us again soon, goodbye.")
             break
         else:
             print("Invalid choice. Please try again.")
@@ -41,8 +41,8 @@ def start(store):
 
 def make_order(store):
     """
-    Facilitate the ordering process by allowing users to select products 
-    and specify quantities. Validate inputs and notify the user if the 
+    Facilitate the ordering process by allowing users to select products
+    and specify quantities. Validate inputs and notify the user if the
     requested quantity exceeds available stock.
 
     :param store: Store object containing the list of products.
@@ -56,9 +56,7 @@ def make_order(store):
                 f"Quantity: {product.quantity}"
             )
         print("------")
-        product_number = input(
-            "Which product # do you want? (or 'done' to finish): "
-        )
+        product_number = input("Which product do you want? (or 'done' to finish): ")
 
         if product_number.lower() == "done" or product_number == "":
             break
@@ -80,9 +78,7 @@ def make_order(store):
                         f"{store.list_products[product_index].name}."
                     )
                 else:
-                    shopping_list.append(
-                        (store.list_products[product_index], quantity)
-                    )
+                    shopping_list.append((store.list_products[product_index], quantity))
             else:
                 print("Invalid product number. Please try again.")
         except ValueError:
@@ -104,7 +100,7 @@ def main():
         Product("Bose QuietComfort Earbuds", price=250, quantity=500),
         Product("Google Pixel 7", price=500, quantity=250),
         NonStockedProduct("Windows License", price=125),
-        LimitedProduct("Shipping", price=10, quantity=250, maximum=1)
+        LimitedProduct("Shipping", price=10, quantity=250, maximum=1),
     ]
 
     # Create promotion catalog
