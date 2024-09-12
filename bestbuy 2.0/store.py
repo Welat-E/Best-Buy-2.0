@@ -24,17 +24,6 @@ class Store:
             print(product.show())  # Call the show method of each product
 
 
-    # Method to calculate the total quantity of products
-    def get_total_quantity(self):
-        """
-        Returns the total quantity of all products in the store.
-
-        Returns:
-            int: Total quantity of all products in the store.
-        """
-        return sum(product.quantity for product in self.list_products)
-
-
     # Method to process the order for a list of products
     def order(self, shopping_list):
         """
@@ -42,24 +31,26 @@ class Store:
 
         Args:
             shopping_list (list): A list of tuples, each containing a product 
-                                and quantity.
+                                  and quantity.
 
         Returns:
             float: The total price of the order, including promotions.
         """
         total_price = 0
+
         for product, quantity in shopping_list:
+            # Check for available stock first
+            if product.quantity < quantity:
+                print(f"Not enough stock for {product.name}.")
+                continue
+
+            # Apply promotion if available
             if product.promotion:
-                # Apply the product's promotion if it has one
                 total_price += product.promotion.apply_promotion(product, quantity)
             else:
-                # No promotion, use the regular price
                 total_price += product.price * quantity
 
-            # Reduce product stock
-            if product.quantity >= quantity:
-                product.set_quantity(product.quantity - quantity)
-            else:
-                raise ValueError(f"Not enough stock for {product.name}.")
+            # Reduce stock after a successful order
+            product.set_quantity(product.quantity - quantity)
 
         return total_price
