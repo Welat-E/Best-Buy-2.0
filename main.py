@@ -46,6 +46,7 @@ def make_order(store):
     requested quantity exceeds available stock or maximum limit.
     """
     shopping_list = []
+    not_enough_stock = False
     while True:
         print("\n------")
         for i, product in enumerate(store.list_products, start=1):
@@ -82,20 +83,20 @@ def make_order(store):
                     print(
                         f"Requested quantity exceeds available stock for {selected_product.name}."
                     )
+                    not_enough_stock = True
                 else:
                     shopping_list.append((selected_product, quantity))
             else:
                 print("Invalid product number. Please try again.")
+            total_price = store.order(shopping_list)
+            if not_enough_stock:
+                print("There is not enough stock.")
+                return
+            if total_price == 0:
+                print(f"Order cost: {total_price} dollars.")
+
         except ValueError:
             print("Invalid input. Please enter a number.")
-
-    total_price = store.order(shopping_list)
-
-    # Check if there is no stock and display the correct message
-    if total_price == "There is no stock":
-        print("There is no stock.")
-    else:
-        print(f"Order cost: {total_price} dollars.")
 
 
 # Main function to set up initial stock and start the store program
