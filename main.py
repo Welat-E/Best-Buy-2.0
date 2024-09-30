@@ -50,6 +50,68 @@ def make_order(store):
     while True:
         print("\n------")
         for i, product in enumerate(store.list_products, start=1):
+            promotion_info = (
+                f" (Promotion: {product.promotion.name})" if product.promotion else ""
+            )
+            print(
+                f"{i}. {product.name}, Price: ${product.price}, "
+                f"Quantity: {product.quantity}{promotion_info}"
+            )
+        print("------")
+        product_number = input("Which product do you want? (or 'done' to finish): ")
+
+        if product_number.lower() == "done" or product_number == "":
+            break
+
+        try:
+            product_index = int(product_number) - 1
+            if 0 <= product_index < len(store.list_products):
+                selected_product = store.list_products[product_index]
+                quantity = int(
+                    input(f"Enter the quantity for {selected_product.name}: ")
+                )
+
+                # is it a limited product?
+                if (
+                    isinstance(selected_product, LimitedProduct)
+                    and quantity > selected_product.maximum
+                ):
+                    print(
+                        f"You cannot purchase more than {selected_product.maximum} of {selected_product.name} in a single order."
+                    )
+                    continue
+
+                # check if the requested quantity is available
+                if quantity > selected_product.get_quantity():
+                    print(
+                        f"Requested quantity exceeds available stock for {selected_product.name}."
+                    )
+                    not_enough_stock = True
+                else:
+                    shopping_list.append((selected_product, quantity))
+            else:
+                print("Invalid product number. Please try again.")
+
+        except ValueError:
+            print("Invalid input. Please enter a number.")
+
+    if shopping_list:
+        total_price = store.order(shopping_list)
+        if not_enough_stock:
+            print("There is not enough stock.")
+            return
+        print(f"Order cost: ${total_price:.2f}")
+
+    """
+    Facilitate the ordering process by allowing users to select products
+    and specify quantities. Validate inputs and notify the user if the
+    requested quantity exceeds available stock or maximum limit.
+    """
+    shopping_list = []
+    not_enough_stock = False
+    while True:
+        print("\n------")
+        for i, product in enumerate(store.list_products, start=1):
             print(
                 f"{i}. {product.name}, Price: ${product.price}, "
                 f"Quantity: {product.quantity}"
